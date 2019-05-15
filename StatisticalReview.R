@@ -24,7 +24,11 @@ library("lattice")
 UnemploymentStats <- read.csv(file = "Unemployment_Claiment.csv", header=FALSE, na.strings=c("","NA"))
 CrimeStats<-read_xls("Police_recorded_crime_in_northern_ireland_1998-99_to_2017-18.xls", 
                      sheet="Table 2.2")
+AA_Crime <- read.csv(file = "AA_All_Crime.csv", header=FALSE, na.strings=c("","NA"))
+AA_Unemployment <- read.csv(file = "AA_Unemployment_stats.csv", header=FALSE, na.strings=c("","NA"))
 
+View(AA_Crime)
+View(AA_Unemployment)
 
 
 # Cleaning up the Unemployment claiment data but first removing the first lines 
@@ -49,7 +53,6 @@ UnemploymentStats <- UnemploymentStats[1:20, ]
 UnemploymentStats$Year <- factor(UnemploymentStats$Year)
 UnemploymentStats$EmploymentRate <- factor(UnemploymentStats$EmploymentRate)
 str(UnemploymentStats)
-View(UnemploymentStats)
 
 # The following command cleans up the Reported Crime data.
 
@@ -65,8 +68,6 @@ colnames(CrimeStats) <- c("Offence", "1998", "1999", "2000", "2001",
                           "2007", "2008", "2009",	"2010",	"2011",
                           "2012", "2013", "2014",	"2015",	"2016",
                           "2017", "Change", "Percent Change")
-
-View(CrimeStats)
 
 # Some key parts of cleaning up the Crime data was that I deleted the first section of statsitics 
 # because in my opinion serious crimes like murder, attempted murder or rape would not be triggered 
@@ -125,7 +126,7 @@ TransposedCrimeStats$Year <- c("1998", "1999", "2000", "2001",
 CombinedData <- merge(UnemploymentStats, TransposedCrimeStats, by="Year")
 
 CombinedData$Year <- factor(CombinedData$Year)
-
+View(CombinedData)
 
 plot(CombinedData$Year, as.numeric(CombinedData$EmploymentRate), type = "o", col = "red")
 

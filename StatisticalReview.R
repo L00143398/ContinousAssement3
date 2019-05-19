@@ -126,24 +126,25 @@ TransposedCrimeStats$Year <- c("1998", "1999", "2000", "2001",
 CombinedData <- merge(UnemploymentStats, TransposedCrimeStats, by="Year")
 
 CombinedData$Year <- factor(CombinedData$Year)
-View(CombinedData)
 
 plot(CombinedData$Year, as.numeric(CombinedData$EmploymentRate), type = "o", col = "red")
+lines(CombinedData$EmploymentRate, type="l", lty=2, lwd=2, 
+      col=plot_colors[2])
 
 plot(CombinedData$Year, as.numeric(CombinedData$Robbery_Offences), type = "o", col = "red")
 
+
+plot_colors <- c(rgb(r=0.0,g=0.0,b=0.9), "red", "forestgreen")
 
 plot(CombinedData$Year, type="l", col=plot_colors[1], 
      ylim=range(CombinedData), axes=F, ann=T, xlab="Days",
      ylab="Total", cex.lab=0.8, lwd=2)
 
 
-plot_colors <- c(rgb(r=0.0,g=0.0,b=0.9), "red", "forestgreen")
 box()
 
 # Graph trucks with thicker red dashed line
-lines(CombinedData$EmploymentRate, type="l", lty=2, lwd=2, 
-      col=plot_colors[2])
+
 
 # Graph suvs with thicker green dotted line
 lines(CombinedData$Robbery_Offences, type="l", lty=3, lwd=2, 
